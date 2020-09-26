@@ -12,3 +12,10 @@
 /captures
 .externalNativeBuild
 .cxx
+local.properties
+/.tmp
+/caches
+/daemon
+/native
+/wrapper
+/kotlin-profile
