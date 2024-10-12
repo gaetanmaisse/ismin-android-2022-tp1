@@ -1,5 +1,9 @@
 package com.ismin.android
 
+import android.os.Build
+import androidx.annotation.RequiresApi
+import java.time.LocalDate
+
 class Bookshelf {
     private val storage = mutableMapOf<String, Book>()
 
@@ -22,5 +26,10 @@ class Bookshelf {
 
     fun getTotalNumberOfBooks(): Int {
         return storage.size
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getBooksPublishedBefore(publicationDate: LocalDate): List<Book> {
+        return storage.filterValues { it.date.isBefore(publicationDate) }.values.sortedBy { it.title }
     }
 }

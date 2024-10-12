@@ -3,26 +3,27 @@ package com.ismin.android
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
+import java.time.LocalDate
 
 class BookshelfUnitTest {
     private val theLordOfTheRings = Book(
         isbn = "978-0544003415",
         title = "The Lord of the Rings",
         author = "J. R. R. Tolkien",
-        date = "1954-02-15"
+        date = LocalDate.parse("1954-02-15")
     )
 
     private val theHobbit = Book(
-        isbn= "978-0547928227",
+        isbn = "978-0547928227",
         title = "The Hobbit",
         author = "J. R. R. Tolkien",
-        date = "1937-09-21"
+        date = LocalDate.parse("1937-09-21")
     )
     private val aLaRechercheDuTempsPerdu = Book(
         isbn = "978-2070107299",
         title = "À la recherche du temps perdu",
         author = "Marcel Proust",
-        date = "1927"
+        date = LocalDate.parse("1927-01-01")
     );
 
     private lateinit var bookshelf: Bookshelf
@@ -79,5 +80,18 @@ class BookshelfUnitTest {
 
         bookshelf.addBook(theLordOfTheRings);
         assertEquals(1, bookshelf.getTotalNumberOfBooks())
+    }
+
+    @Test
+    fun getBooksPublishedBefore_returns_books_based_on_publication_date() {
+        bookshelf.addBook(theLordOfTheRings);
+        bookshelf.addBook(theHobbit);
+        bookshelf.addBook(aLaRechercheDuTempsPerdu);
+
+        assertEquals(
+            arrayListOf(aLaRechercheDuTempsPerdu),
+            bookshelf.getBooksPublishedBefore(LocalDate.parse("1930-01-01"))
+        )
+
     }
 }
